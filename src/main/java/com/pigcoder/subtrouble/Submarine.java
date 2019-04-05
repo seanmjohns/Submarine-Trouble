@@ -13,6 +13,14 @@ public class Submarine extends Rectangle2D.Double {
 	public static final File submarineImageFile = new File("Submarine.png");
 	public static Image submarineImage;
 
+	public static final int healthBarOffsetY = 10;
+	public static final int healthBarWidth = (int)SIZE.getWidth();
+	public static final int healthBarHeight = 5;
+
+	public static final int MAXHEALTH = 100;
+
+	public static final int DEPTHCHARGEDETECTIONRANGE = 200;
+
 
 	public static final int MAXATTACKDISTANCE = 100;
 
@@ -25,10 +33,10 @@ public class Submarine extends Rectangle2D.Double {
 
 	double speed = 2.25;
 
-	public double health = 100;
+	public double health = MAXHEALTH;
 
 	public void damaged(double amount) {
-		health =- amount;
+		health = health - amount;
 		//Note that the sub is not removed here because that is handled by the scheduled executor
 	}
 
@@ -52,11 +60,14 @@ public class Submarine extends Rectangle2D.Double {
 
 	public void move() {
 		//If there is no target, then just move across the screen
-		if(currentAction == WANDER && targetPoint == null) {
+		if(((currentAction == WANDER && targetPoint == null) || !GameFrame.inGame) && !Main.testing) {
 			if(direction == 0) {
 				x = x - speed;
 			} else if (direction == 1) {
 				x = x + speed;
+			}
+			if(!GameFrame.inGame) {
+				return;
 			}
 		} else {
 			if(targetPoint != null) {
@@ -161,9 +172,21 @@ public class Submarine extends Rectangle2D.Double {
 		GameFrame.torpedoes.add(t);
 	}
 
+	public void destroyed() {
+		//Drop a powerup crate when destroyed
+		if(true /*ThreadLocalRandom.current().nextInt(0, 10) == 1*/) {
+			GameFrame.crates.add(new Crate(getCenterX() - Crate.SIZE.getWidth(), getCenterY() - Crate.SIZE.getHeight()));
+		}
+	}
+
 
 	public Submarine() {
-		y = ThreadLocalRandom.current().nextDouble(GameFrame.OCEANLEVEL + SIZE.getHeight(), GameFrame.OCEANFLOORLEVEL - SIZE.getHeight());
+		y = 0;
+		if(GameFrame.inGame || Main.testing) {
+			y = ThreadLocalRandom.current().nextDouble(GameFrame.OCEANLEVEL + SIZE.getHeight(), GameFrame.OCEANFLOORLEVEL - SIZE.getHeight());
+		} else {
+			y = ThreadLocalRandom.current().nextDouble(0, GameFrame.SIZE.getHeight() - SIZE.getHeight());
+		}
 		int side = ThreadLocalRandom.current().nextInt(0, 2);
 		if(side == 1) {
 			x = -(SIZE.getWidth());

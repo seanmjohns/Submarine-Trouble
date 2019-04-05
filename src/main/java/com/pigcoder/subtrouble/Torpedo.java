@@ -34,10 +34,6 @@ public class Torpedo extends Rectangle2D.Double {
 			//angle = Math.atan2((targetPoint.getX() - x), (targetPoint.getY() - y));
 			x += Math.sin(angle) * speed;
 			y += Math.cos(angle) * speed;
-			if(GameFrame.player.intersects(this)) {
-				GameFrame.player.damaged(damage);
-				GameFrame.torpedoes.remove(this);
-			}
 		} else {
 			GameFrame.torpedoes.remove(this);
 		}

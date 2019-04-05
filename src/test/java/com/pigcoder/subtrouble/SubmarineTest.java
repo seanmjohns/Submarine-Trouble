@@ -11,6 +11,7 @@ public class SubmarineTest {
 
 	@Test
 	public void spawnsBelowOceanLevelAndAboveOceanFloor() {
+		Main.testing = true;
 		for(int i=0; i<10000; i++) {
 			Submarine sub = new Submarine();
 			assertTrue("Sub is above sea level", sub.getY() >= GameFrame.OCEANLEVEL + Submarine.SIZE.getHeight());
@@ -20,6 +21,7 @@ public class SubmarineTest {
 
 	@Test
 	public void subTurnsAroundIfTargetIsBehind() {
+		Main.testing = true;
 		Submarine sub = new Submarine();
 
 		//behind
@@ -49,6 +51,7 @@ public class SubmarineTest {
 
 	@Test
 	public void subReachesTargetPoint() {
+		Main.testing = true;
 		for (int i = 0; i < 100; i++) {
 			Submarine sub = new Submarine();
 
@@ -69,6 +72,7 @@ public class SubmarineTest {
 
 	@Test
 	public void subStaysInTheOcean() {
+		Main.testing = true;
 		for(int i=0; i<100; i++) {
 			Submarine sub = new Submarine();
 
@@ -76,6 +80,8 @@ public class SubmarineTest {
 			sub.setTargetPoint(
 					ThreadLocalRandom.current().nextInt(0, (int)GameArea.SIZE.getWidth()),
 					ThreadLocalRandom.current().nextInt(0, GameFrame.OCEANLEVEL));
+
+			//System.out.println(sub.targetPoint);
 
 			for (int p = 0; p < 1000; p++) { //Going to 1000 insures that the sub makes it there
 				sub.move();
@@ -89,6 +95,8 @@ public class SubmarineTest {
 			sub.setTargetPoint(
 					ThreadLocalRandom.current().nextInt(0, (int)GameArea.SIZE.getWidth()),
 					ThreadLocalRandom.current().nextInt(GameFrame.OCEANFLOORLEVEL, (int)GameArea.SIZE.getHeight()));
+
+			//System.out.println(sub.targetPoint);
 
 			for (int p = 0; p < 1000; p++) { //Going to 1000 insures that the sub makes it there
 				sub.move();
