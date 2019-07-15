@@ -15,8 +15,12 @@ public class Crate extends Rectangle2D.Double {
 	public static final int healthBarWidth = (int)SIZE.getWidth();
 	public static final int healthBarHeight = 5;
 
-	public static final File crateImageFile = new File("Crate.png");
-	public static Image crateImage;
+	public static final File speedCrateImageFile = new File("SpeedCrate.png");
+	public static Image speedCrateImage;
+	public static final File armorCrateImageFile = new File("ArmorCrate.png");
+	public static Image armorCrateImage;
+	public static final File healthCrateImageFile = new File("HealthCrate.png");
+	public static Image healthCrateImage;
 
 	//Types
 	public static final int HEALTH = 1;

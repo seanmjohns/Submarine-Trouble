@@ -1,10 +1,8 @@
 package com.pigcoder.subtrouble;
 
 import java.awt.*;
-import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.io.File;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class DepthCharge extends Rectangle2D.Double {
@@ -12,10 +10,13 @@ public class DepthCharge extends Rectangle2D.Double {
 	public static final int EXPLOSIONRADIUS = 50; //Damage = explosion radius * damageMultiplier
 	public static final int damageMultiplier = 2;
 
-	public static final Dimension SIZE = new Dimension(10, 5);
+	public static final Dimension SIZE = new Dimension(15, 7);
 
 	public static final File depthChargeImageFile = new File("DepthCharge.png");
 	public static Image depthChargeImage;
+
+	public static final File depthChargeIndicatorImageFile = new File("DepthChargeIndicator.png");
+	public static Image depthChargeIndicatorImage;
 
 	public double speed = 1;
 
@@ -56,6 +57,7 @@ public class DepthCharge extends Rectangle2D.Double {
 				double damage = Math.abs(distance - EXPLOSIONRADIUS) * damageMultiplier;
 				sub.damaged(damage);
 				GameFrame.score += damage; //Increase the player's score
+				GameFrame.scoreIncreases.add(new ScoreIncrease((int)damage, (int)sub.x + (int)Submarine.SIZE.getWidth()/2 , (int)sub.y - 15));
 				if(sub.health > 0) {
 					newSubs.add(sub);
 				} else {
@@ -67,7 +69,7 @@ public class DepthCharge extends Rectangle2D.Double {
 		}
 		GameFrame.submarines = newSubs;
 		GameFrame.depthCharges.remove(this);
-		GameFrame.explosions.add(new Point2D.Double(x,y));
+		GameFrame.explosions.add(new Explosion((int)getCenterX(), (int)getCenterY()));
 	}
 
 	public DepthCharge(double x, double y, double targetY) {

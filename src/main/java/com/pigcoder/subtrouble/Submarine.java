@@ -13,6 +13,9 @@ public class Submarine extends Rectangle2D.Double {
 	public static final File submarineImageFile = new File("Submarine.png");
 	public static Image submarineImage;
 
+	public static final File detectedPlayerImageFile = new File("PlayerDetected.png");
+	public static Image detectedPlayerImage;
+
 	public static final int healthBarOffsetY = 10;
 	public static final int healthBarWidth = (int)SIZE.getWidth();
 	public static final int healthBarHeight = 5;
@@ -174,9 +177,10 @@ public class Submarine extends Rectangle2D.Double {
 
 	public void destroyed() {
 		//Drop a powerup crate when destroyed
-		if(true /*ThreadLocalRandom.current().nextInt(0, 10) == 1*/) {
+		if(ThreadLocalRandom.current().nextInt(0, 10) == 1) {
 			GameFrame.crates.add(new Crate(getCenterX() - Crate.SIZE.getWidth(), getCenterY() - Crate.SIZE.getHeight()));
 		}
+		GameFrame.explosions.add(new Explosion((int)getCenterX(), (int)getCenterY()));
 	}
 
 
