@@ -10,6 +10,7 @@ public class GameTest {
 
 	@Test
 	public void oceanFloorDoesNotExceedOceanFloorLevelOrGoBelowScreen() {
+		Main.testing = true;
 		GameArea area = new GameArea();
 		for(int i=0; i<50; i++) {
 			area.generateOceanFloor();

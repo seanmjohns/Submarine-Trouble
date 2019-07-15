@@ -11,6 +11,7 @@ public class TorpedoTest {
 
 	@Test
 	public void tReachesTargetPoint() {
+		Main.testing = true;
 		for (int i = 0; i < 100; i++) {
 			GameFrame.player = new Player();
 			Torpedo t = new Torpedo(300, 300, null);
@@ -27,6 +28,7 @@ public class TorpedoTest {
 
 	@Test
 	public void tStaysInTheOcean() {
+		Main.testing = true;
 		for(int i=0; i<100; i++) {GameFrame.player = new Player();
 			Torpedo t = new Torpedo(300, 300, null);
 

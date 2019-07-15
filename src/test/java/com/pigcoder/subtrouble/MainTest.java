@@ -11,20 +11,16 @@ public class MainTest {
 
 	@Test
 	public void windowShouldNotBeVisibleDuringTesting() {
+		Main.testing = true;
+		Main.testing = true;
 		GameFrame testFrame = new GameFrame();
 		testFrame.createGui(true);
 		assertTrue("The window should not be visible during testing", !testFrame.isVisible());
 	}
 
 	@Test
-	public void gameAreaShouldBe600By400() {
-		GameFrame testFrame = new GameFrame();
-		testFrame.createGui(true);
-		assertEquals( "gameArea should be 400 x 600", new Dimension(600, 400), testFrame.area.getSize());
-	}
-
-	@Test
 	public void resourcesCanBeSuccessfullyLoaded() {
+		Main.testing = true;
 		assertTrue("Resources should load", Main.loadResources());
 	}
 
